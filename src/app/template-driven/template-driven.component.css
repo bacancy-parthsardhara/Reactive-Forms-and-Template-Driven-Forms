@@ -1,0 +1,16 @@
+.has-danger{
+    border-style: solid;
+    border-color:  red;
+}
+
+.has-success{
+    border-style: solid;
+    border-color:  green;
+}
+.has-danger-radio{
+    border-color: red;
+}
+.has-success-radio{
+    border-color: green;
+
+}

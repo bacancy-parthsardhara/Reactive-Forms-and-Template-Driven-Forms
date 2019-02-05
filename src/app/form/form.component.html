@@ -1,0 +1,97 @@
+<div class="col-md-3">
+  <pre>myform Value: 
+      {{myform.value | json}}</pre>
+  <pre>
+      Dirty? {{ myform.controls.email.dirty }}
+      Pristine? {{ myform.controls.email.pristine }}
+      Touched? {{ myform.controls.email.touched }}
+      Valid? {{ myform.controls.email.valid }}
+      Invalid? {{ myform.controls.email.invalid }}</pre>
+
+  <pre>Name Value: 
+      {{myform.controls.name.value | json}}</pre>
+</div>
+
+<h2>Form</h2>
+
+<div class="col-md-6">
+  <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+    <fieldset formGroupName="name">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" formControlName="firstName" [ngClass]="{
+          'has-danger': n.controls.firstName.invalid && n.controls.firstName.dirty,
+          'has-success': n.controls.firstName.valid && n.controls.firstName.dirty 
+        }">
+        <div class="text-danger" *ngIf="n.controls.firstName.invalid && n.controls.firstName.dirty">First Name is
+          invalid.</div>
+      </div>
+
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" formControlName="lastName" [ngClass]="{
+          'has-danger': n.controls.lastName.invalid && n.controls.lastName.dirty,
+          'has-success': n.controls.lastName.valid && n.controls.lastName.dirty
+        }">
+        <div class="text-danger" *ngIf="n.controls.lastName.invalid && n.controls.lastName.dirty">Last Name is
+          required.</div>
+      </div>
+    </fieldset>
+
+    <div class="form-group">
+      <label>Mobile no.</label>
+      <input type="password" class="form-control" formControlName="mobileNo" [ngClass]="{
+          'has-danger': f.mobileNo.invalid && f.mobileNo.dirty,
+          'has-success': f.mobileNo.valid && f.mobileNo.dirty
+      }">
+      <div *ngIf="f.mobileNo.errors && f.mobileNo.dirty">
+        <div class="text-danger" *ngIf="f.mobileNo.invalid && f.mobileNo.dirty"> Mobile no is required.</div>
+        <div class="text-danger" *ngIf="f.mobileNo.invalid && f.mobileNo.dirty"> Mobile no is invalid.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" formControlName="email" [ngClass]="{
+        'has-danger': f.email.invalid && f.email.dirty,
+        'has-success': f.email.valid && f.email.dirty
+    }">
+      <div *ngIf="f.email.errors && f.email.dirty">
+        <div class="text-danger" *ngIf="f.email">Email is required.</div>
+        <div class="text-danger" *ngIf="f.email.invalid">Email is invalid</div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password" [ngClass]="{
+        'has-danger': f.password.invalid && f.password.dirty,
+        'has-success': f.password.valid && f.password.dirty
+    }">
+      <div class="text-danger" *ngIf="f.password.invalid && f.password.dirty"> Password is invalid. </div>
+    </div>
+
+    <div class="form-group">
+      <label>Language</label>
+      <select class="form-control" formControlName="language" [ngClass]="{
+        'has-danger': f.language.invalid && f.language.dirty,
+        'has-success': f.language.valid && f.language.dirty
+    }">
+        <option value="">Please select a language</option>
+        <option *ngFor="let lang of langs" [value]="lang">
+          {{lang}}
+        </option>
+        <!-- <div class="text-danger" *ngIf="f.password.invalid && f.language.dirty"> Language is invalid. </div>         -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <input type="radio" formControlName="gender" value="male"> Male
+      <input type="radio" formControlName="gender" value="female"> Female
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+
+  </form>
+</div>

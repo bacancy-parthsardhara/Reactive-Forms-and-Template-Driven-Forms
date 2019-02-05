@@ -1,0 +1,137 @@
+<div class="col-md-6" *ngIf="f.controls.name">
+  <pre>Data :-
+{{f.value | json}} </pre>
+{{model | json}}
+
+  <!-- <pre>Name value :-
+{{f.controls.name.value | json}} </pre>
+
+
+  <pre>Touched? {{f.form.controls.email.touched}}
+Pristine? {{f.form.controls.email.pristine}}
+Dirty? {{f.form.controls.email.dirty}}
+Valid? {{f.form.controls.email.valid}}
+InValid? {{f.form.controls.email.invalid}}
+</pre> -->
+
+  <!-- {{form.controls.email}} -->
+  <!-- {{form.controls.email.valid}} -->
+</div>
+
+<div class="col-md-6">
+  <form #f="ngForm" novalidate (ngSubmit)="onSubmit()">
+
+    <fieldset ngModelGroup="name">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]="model.name.firstName" #firstNameData="ngModel"
+          required [ngClass]="{
+          'has-danger': firstNameData.invalid && (firstNameData.dirty || firstNameData.touched),
+          'has-success': firstNameData.valid && (firstNameData.dirty || firstNameData.touched)
+     }">
+        <div *ngIf="firstNameData.errors && (firstNameData.dirty || firstNameData.touched)">
+          <p class="text-danger" *ngIf="firstNameData.errors.required">First Name is required.</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" name="lastName" [(ngModel)]="model.name.lastName" #lastNameData="ngModel"
+          required [ngClass]="{
+          'has-danger': lastNameData.invalid && (lastNameData.dirty || lastNameData.touched),
+          'has-success': lastNameData.valid && (lastNameData.dirty || lastNameData.touched)
+     }">
+        <div *ngIf="lastNameData.errors && (lastNameData.dirty || lastNameData.touched)">
+          <p class="text-danger" *ngIf="lastNameData.errors.required">Last Name is required.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #emailData="ngModel" required
+        pattern="[^ @]*@[^ @]*" [ngClass]="{
+       'has-danger': emailData.invalid && (emailData.dirty || emailData.touched),
+       'has-success': emailData.valid && (emailData.dirty || emailData.touched)
+    }">
+      <div *ngIf="emailData.errors && (emailData.dirty || emailData.touched)">
+        <p class="text-danger" *ngIf="emailData.errors.required">Email is required</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="radio" required name="gender" [(ngModel)]="model.gender" value="male" #radioData="ngModel"> Male
+      <input type="radio" required name="gender" [(ngModel)]="model.gender" value="female"> Female
+      <div *ngIf="radioData.errors && (radioData.dirty || radioData.touched)">
+        <p class="text-danger" *ngIf="radioData.errors.required">Gender is required</p>
+      </div>
+    </div>
+
+    <div class="form-group" ngModelGroup="subject">
+      <input type="checkbox" value="maths" required name="maths" [(ngModel)]="maths" #checkboxData="ngModel"> Maths
+      <input type="checkbox" value="science" required name="science" [(ngModel)]="science" #checkboxData="ngModel"> Science
+      <input type="checkbox" value="computer" required name="computer" [(ngModel)]="computer" #checkboxData="ngModel"> Computer
+      <div *ngIf="checkboxData.errors && (checkboxData.dirty || checkboxData.touched)">
+        <p class="text-danger" *ngIf="checkboxData.errors.required">subject is required</p>
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <div *ngFor="let sub of subject; let i = index" class="checkbox-inline">
+        <input type="checkbox" required name="subject" [(ngModel)]="model.subject" #checkboxData="ngModel">{{sub}}
+      </div>
+
+      <div *ngIf="checkboxData?.errors && (checkboxData?.dirty || checkboxData?.touched)">
+        <p class="text-danger" *ngIf="checkboxData.errors.required">subject is required</p>
+      </div>
+    </div> -->
+
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #passwordData="ngModel"
+        required minlength="8" [ngClass]="{
+        'has-danger': passwordData.invalid && (passwordData.dirty || passwordData.touched),
+        'has-success': passwordData.valid && (passwordData.dirty || passwordData.touched)
+    }">
+      <div *ngIf="passwordData.errors && (passwordData.dirty || passwordData.touched)">
+        <p class="text-danger" *ngIf="passwordData.errors.required">Password is required</p>
+        <p class="text-danger" *ngIf="passwordData.errors.minlength">Password minlength is 8 digits required</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Mobile no.</label>
+      <input type="password" class="form-control" name="mobileNo" [(ngModel)]="model.mobileNo" #mobileData="ngModel"
+        required pattern="[0-9]*" minlength="10" maxlength="10" [ngClass]="{
+          'has-danger': mobileData.invalid && (mobileData.dirty || mobileData.touched),
+          'has-success': mobileData.valid && (mobileData.dirty || mobileData.touched)
+      }">
+      <div *ngIf="mobileData.errors && (mobileData.dirty || mobileData.touched)">
+        <p class="text-danger" *ngIf="mobileData.errors.required"> Mobile no is required.</p>
+        <p class="text-danger" *ngIf="mobileData.errors.minlength"> Mobile no is invalid.</p>
+        <p class="text-danger" *ngIf="mobileData.errors.pattern"> Mobile no is only number.</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Language</label>
+      <select class="form-control" name="language" [(ngModel)]="model.language" #languageData="ngModel" required
+        [ngClass]="{
+        'has-danger': languageData.invalid && (languageData.dirty || languageData.touched),
+        'has-success': languageData.valid && (languageData.dirty || languageData.touched)
+      }">
+        <option value="">Please select a language</option>
+        <option *ngFor="let lang of langs" [value]="lang">
+          {{lang}}
+        </option>
+      </select>
+      <div *ngIf="languageData.errors && (languageData.dirty || languageData.touched)">
+        <p class="text-danger" *ngIf="languageData.errors.required"> Language no is required.</p>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="f.invalid"> Submit</button>
+
+  </form>
+</div>
