@@ -40,12 +40,12 @@
 
     <div class="form-group">
       <label>Mobile no.</label>
-      <input type="password" class="form-control" formControlName="mobileNo" [ngClass]="{
+      <input type="text" class="form-control" formControlName="mobileNo" [ngClass]="{
           'has-danger': f.mobileNo.invalid && f.mobileNo.dirty,
           'has-success': f.mobileNo.valid && f.mobileNo.dirty
       }">
       <div *ngIf="f.mobileNo.errors && f.mobileNo.dirty">
-        <div class="text-danger" *ngIf="f.mobileNo.invalid && f.mobileNo.dirty"> Mobile no is required.</div>
+        <div class="text-danger" *ngIf="f.mobileNo.errors.required"> Mobile no is required.</div>
         <div class="text-danger" *ngIf="f.mobileNo.invalid && f.mobileNo.dirty"> Mobile no is invalid.</div>
       </div>
     </div>

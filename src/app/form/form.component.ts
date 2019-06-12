@@ -34,8 +34,7 @@ export class FormComponent implements OnInit {
       // food: new FormControl('lamb'),
       gender : new FormControl('', Validators.required),
       mobileNo : new FormControl('',[
-        Validators.required,
-        Validators.pattern("^\d{10}$"),
+        Validators.required,,
         Validators.maxLength(10),
         Validators.minLength(10)]),
     }); 
